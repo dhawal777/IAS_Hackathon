@@ -1,0 +1,28 @@
+<html>
+<head>
+<title>Digit Recognizer</title>
+<script>
+function fun()
+{
+	// alert("ABC")
+	var file=document.getElementById("file1")
+	x=file.value.split(".")
+	if(x[1]!='csv')
+	{
+		alert("Please upload csv file only")
+	}
+	else
+	{
+		document.form1.submit();
+	}
+}
+</script>
+</head>
+<body>
+<form action="{{url_for('testing')}}" enctype="multipart/form-data" method ="POST" name="form1">
+
+<input type="file" name="file" id="file1">
+<button type="button" onclick="fun()">Submit</button>
+</form>
+</body>
+</html>

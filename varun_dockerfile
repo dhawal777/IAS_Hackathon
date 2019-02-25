@@ -1,0 +1,33 @@
+FROM python
+
+RUN apt-get update && apt-get install -y python-pip
+
+# Install jupyter
+RUN pip install jupyter
+
+RUN pip install numpy
+RUN pip install pandas
+RUN pip install tensorflow
+RUN pip install jupyter
+
+# Create a new system user
+RUN useradd -ms /bin/bash demo
+
+# Change to this new user
+USER demo
+
+
+
+# Set the container working directory to the user home folder
+WORKDIR /home/demo
+
+COPY test.py /home/demo
+COPY Sonar.csv /home/demo
+COPY test.ckpt.meta /home/demo
+COPY test.ckpt.index /home/demo
+COPY test.ckpt.data-00000-of-00001 /home/demo
+
+RUN python test.py
+
+# Start the jupyter notebook
+#ENTRYPOINT ["jupyter", "notebook", "--ip=0.0.0.0"]
